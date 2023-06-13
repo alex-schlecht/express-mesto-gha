@@ -8,12 +8,12 @@ module.exports.errorHandler = (err, res) => {
       break;
     }
     case CastError:
-      res.status(400).send({ 'Ошибка! Переданы некорректные данные' });
+      res.status(400).send({ message: 'Ошибка! Переданы некорректные данные' });
       break;
     case DocumentNotFoundError:
-      res.status(404).send({ 'Ошибка! Данные не найдены' });
+      res.status(404).send({ message: 'Ошибка! Данные не найдены' });
       break;
     default:
-      res.status(500).send({ 'Internal Server Error' });
+      res.status(500).send({ message: 'Internal Server Error' });
   }
 };
