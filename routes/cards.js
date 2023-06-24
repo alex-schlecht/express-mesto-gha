@@ -1,6 +1,6 @@
+const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { URI_REGEX } = require('../utils/constants');
-const router = require('express').Router();
 const {
   getCards, createCard, likeCard, deleteCard, removeLikeCard,
 } = require('../controllers/cards');
