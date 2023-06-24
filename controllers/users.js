@@ -86,7 +86,7 @@ module.exports.updateUserProfile = (req, res, next) => {
   const { _id } = req.user;
 
   User.findByIdAndUpdate(_id, { name, about }, { new: true, runValidators: true })
-    .then((user) => res.send({ user: user.name, user: user.about }))
+    .then((user) => res.send({ user }))
     .catch((err) => errorHandler(err, res, next));
 };
 

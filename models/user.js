@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    select: false,
     required: [true, 'Пароль не может быть пустым'],
     minlength: [2, 'Пароль должен быть не короче 2 символов'],
   },
