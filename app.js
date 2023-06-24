@@ -2,11 +2,12 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const celebrateErrors = require('celebrate').errors;
+
 const cards = require('./routes/cards');
 const users = require('./routes/users');
 const pageNotFound = require('./routes/pageNotFound');
-const cookieParser = require('cookie-parser');
-const celebrateErrors = require('celebrate').errors;
 const auth = require('./routes/auth');
 const { checkAuthorizedUser } = require('./middlewares/auth');
 const handleServerError = require('./middlewares/handleServerError');
