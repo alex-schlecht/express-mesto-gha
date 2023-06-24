@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { URI_REGEX } = require('../utils/constants');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -9,12 +10,9 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    required: [true, 'Ссылка не может быть пустой'],
+    required: [true, 'Ссылка карточки не может быть пустой'],
     validate: {
-      validator: (value) => {
-        const urlRegex = /^(http|https):\/\/[^ "]+$/;
-        return urlRegex.test(value);
-      },
+      validator: (value) => URI_REGEX.test(value),
       message: (props) => `Ссылка '${props.value}' некорректна`,
     },
   },
