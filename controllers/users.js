@@ -6,6 +6,7 @@ const { errorHandler } = require('../utils/utils');
 const Conflict = require('../errors/Conflict');
 
 require('dotenv').config();
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 const JwtToken = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
 
@@ -32,9 +33,13 @@ module.exports.getAllUsers = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password 
+  } = req.body;
 
-  const createUser = (hash) => User.create({ name, about, avatar, email, password: hash })
+  const createUser = (hash) => User.create({
+    name, about, avatar, email, password: hash
+  })
     .then((user) => res.status(201).send({ user }))
     .catch((err) => errorHandler(err, res, next));
 
