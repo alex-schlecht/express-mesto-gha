@@ -60,7 +60,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  User.findUserByData(email, password, next)
+  User.findUserByData(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
@@ -73,7 +73,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
         }).send({});
     })
-    .catch((err) => next(err));
+    .catch((err) => {next(err)});
 };
 
 module.exports.updateUserProfile = (req, res, next) => {

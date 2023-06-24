@@ -37,6 +37,12 @@ const userSchema = new mongoose.Schema({
       message: (props) => `Ссылка '${props.value}' некорректна`,
     },
   },
+  password: {
+    type: String,
+    required: [true, 'Пароль не может быть пустым'],
+    select: false,
+    minlength: [2, 'Пароль должен быть не короче 2 символов'],
+  },
 }, { versionKey: false });
 
 userSchema.statics.findUserByData = function findUserByData(email, password) {
