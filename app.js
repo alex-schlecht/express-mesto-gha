@@ -20,12 +20,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cookieParser());
-app.use(celebrateErrors());
-app.use(handleServerError);
+
 app.use('/cards', checkAuthorizedUser, cards);
 app.use('/users', checkAuthorizedUser, users);
 app.use('/', auth);
 app.use('*', pageNotFound);
+
+app.use(celebrateErrors());
+app.use(handleServerError);
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true, useUnifiedTopology: true });
 app.listen(PORT);
