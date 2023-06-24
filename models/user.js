@@ -44,9 +44,8 @@ const userSchema = new mongoose.Schema({
   },
 }, { versionKey: false });
 
-userSchema.statics.findUserByData = function findUserByData(email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email })
-    .select('+password')
     .then((user) => {
       if (!user) {
         return Promise.reject(new Unauthorized('Неправильные почта или пароль'));
@@ -56,6 +55,7 @@ userSchema.statics.findUserByData = function findUserByData(email, password) {
           if (!matched) {
             return Promise.reject(new Unauthorized('Неправильные почта или пароль'));
           }
+          console.log(user);
           return user;
         });
     });
