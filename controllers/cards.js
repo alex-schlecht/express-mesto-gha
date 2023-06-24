@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const Forbidden = require('../utils/utils');
+const Forbidden = require('../errors/Forbidden');
 const { errorHandler } = require('../utils/utils');
 
 module.exports.getCards = (req, res, next) => {
