@@ -25,7 +25,7 @@ module.exports.deleteCard = (req, res, next) => {
   Card.findById({ _id: cardId })
     .orFail()
     .then((card) => {
-      if(card.owner._id.valueOf() !== userId) {
+      if (card.owner._id.valueOf() !== userId) {
         return next(new Forbidden('Доступ запрещён'));
       }
       return deleteCard(card._id)
