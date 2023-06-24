@@ -73,7 +73,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
         }).send({});
     })
-    .catch((err) => {next(err)});
+    .catch((err) => next(err));
 };
 
 module.exports.updateUserProfile = (req, res, next) => {
