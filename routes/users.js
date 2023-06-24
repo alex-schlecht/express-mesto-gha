@@ -1,11 +1,9 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
 const { celebrate, Joi } = require('celebrate');
 const { URI_REGEX } = require('../utils/constants');
 const {
   getUser, getUserInfo, getAllUsers, updateUserProfile, updateUserAvatar,
 } = require('../controllers/users');
-const Unauthorized = require('../errors/Unauthorized');
 
 router.get('/', getAllUsers);
 router.get('/me', getUserInfo);

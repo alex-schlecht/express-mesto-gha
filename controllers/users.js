@@ -34,28 +34,33 @@ module.exports.getAllUsers = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name,
+    about,
+    avatar,
+    email,
+    password,
   } = req.body;
-
-  const createUser = (hash) => User.create({
-    name, about, avatar, email, password: hash,
-  })
-    .then((user) => res.status(201).send({ user }))
-    .catch((err) => errorHandler(err, res, next));
-
-  User.findOne({ email })
-    .select('+password')
-    .then((existUser) => {
-      if (existUser) {
-        return next(new Conflict('Email уже используется'));
-      }
-      return bcrypt.hash(password, 10);
-    })
-    .then((hash) => createUser(hash))
-    .then((user) => res.status(201).send({
-      _id: user._id, email: user.email, name: user.name, about: user.about, avatar: user.avatar,
+  bcrypt.hash(password, 10)
+    .then((hash) => User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
     }))
-    .catch(() => next);
+    .then((newUser) => {
+      res.status(201).send({
+        name: newUser.name,
+        about: newUser.about,
+        avatar: newUser.avatar,
+        email: newUser.email,
+        _id: newUser._id,
+      });
+    })
+    .catch(() => {
+      const err = new Conflict('Email уже используется');
+      next(err);
+    });
 };
 
 module.exports.login = (req, res, next) => {
