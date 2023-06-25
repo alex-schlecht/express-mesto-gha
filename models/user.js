@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     required: [true, 'Email не может быть пустым'],
     unique: [true, 'Email занят другим пользователем'],
-    minlength: [2, 'Email должен быть не короче 2 символов'],
     validate: {
       validator: (email) => validator.isEmail(email),
       message: 'Некорректный email адрес',
@@ -41,7 +40,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     select: false,
     required: [true, 'Пароль не может быть пустым'],
-    minlength: [2, 'Пароль должен быть не короче 2 символов'],
   },
 }, { versionKey: false });
 

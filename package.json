@@ -13,7 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/alex-schlecht/express-mesto-gha.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alex-schlecht/express-mesto-gha/issues"

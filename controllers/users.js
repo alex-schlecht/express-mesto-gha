@@ -57,16 +57,14 @@ module.exports.createUser = (req, res, next) => {
         _id: newUser._id,
       });
     })
-    .catch(() => {
-      const err = new Conflict('Email уже используется');
-      next(err);
-    });
+    .catch(() => next);
 };
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
+      console.log(user);
       const token = jwt.sign(
         { _id: user._id },
         JwtToken,
@@ -76,7 +74,7 @@ module.exports.login = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-        }).send({ password: user.password });
+        }).send({});
     })
     .catch((err) => next(err));
 };

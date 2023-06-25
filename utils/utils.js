@@ -1,6 +1,7 @@
 const { ValidationError, CastError, DocumentNotFoundError } = require('mongoose').Error;
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
+const Duplicated = require('../errors/Duplicated');
 
 module.exports.errorHandler = (err, res, next) => {
   switch (err.constructor) {
@@ -9,6 +10,9 @@ module.exports.errorHandler = (err, res, next) => {
       next(new BadRequest(`Validation error ${errors}`));
       break;
     }
+    case Duplicated:
+      next(new Duplicated(err.message));
+      break;
     case CastError:
       next(new BadRequest(err.message));
       break;
