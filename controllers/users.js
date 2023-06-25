@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
 const User = require('../models/user');
 const { errorHandler } = require('../utils/utils');
 
@@ -55,11 +56,7 @@ module.exports.createUser = (req, res, next) => {
         _id: newUser._id,
       });
     })
-    .catch((err) => {
-      if (err.code === 11000) {
-
-      }
-    });
+    .catch(() => next);
 };
 
 module.exports.login = (req, res, next) => {
