@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const { CastError } = require('mongoose').Error;
+const Conflict = require('../errors/Conflict');
 const User = require('../models/user');
 const { errorHandler } = require('../utils/utils');
 
@@ -56,7 +57,15 @@ module.exports.createUser = (req, res, next) => {
         _id: newUser._id,
       });
     })
-    .catch(() => next);
+    .catch((err) => {
+      if(err.code === 11000) {
+        next(new Conflict('Такой email уже зарегистрирован'));
+      } else if (err.name === 'ValidationError') {
+        next(new CastError('Переданы некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.login = (req, res, next) => {
