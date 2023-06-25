@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
 const User = require('../models/user');
 const { errorHandler } = require('../utils/utils');
-const Conflict = require('../errors/Conflict');
 
 require('dotenv').config();
 
@@ -57,14 +55,17 @@ module.exports.createUser = (req, res, next) => {
         _id: newUser._id,
       });
     })
-    .catch(() => next);
+    .catch((err) => {
+      if (err.code === 11000) {
+
+      }
+    });
 };
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log(user);
       const token = jwt.sign(
         { _id: user._id },
         JwtToken,
