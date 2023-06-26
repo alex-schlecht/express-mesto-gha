@@ -16,6 +16,6 @@ module.exports.errorHandler = (err, res, next) => {
       next(new NotFound(err.message));
       break;
     default:
-      next(new NotFound(err.message));
+      next(err);
   }
 };
